@@ -15,6 +15,7 @@ import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeli
 import 'react-vertical-timeline-component/style.min.css';
 import PointerComp from "./components/Pointer";
 import PointerImg from "./components/Pointer";
+import MarkerIcon from "./components/marker.png";
 
 
 function App() {
@@ -83,7 +84,7 @@ function App() {
   return (
 
 
-    <div className="App" style={{ display: "flex", justifyContent: 'center', alignItems: 'start' }}>
+    <div className="App" style={{ display: "flex", justifyContent: 'center', alignItems: 'start', position:"relative"}}>
 
       {/* <div style={{ marginTop: "10px" }}>
         <Timeline/>
@@ -93,95 +94,35 @@ function App() {
 
 
 
-        <VerticalTimeline className="mt-16" lineColor={'black'} layout="1-column-left" >
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-            contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-            date="2011 - present"
-            iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-          >
-            <h3 className="vertical-timeline-element-title">Creative Director</h3>
-            <h4 className="vertical-timeline-element-subtitle">Miami, FL</h4>
-            <p>
-              Creative Direction, User Experience, Visual Design, Project Management, Team Leading
-            </p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            date="2010 - 2011"
-            iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-          >
-            <h3 className="vertical-timeline-element-title">Art Director</h3>
-            <h4 className="vertical-timeline-element-subtitle">San Francisco, CA</h4>
-            <p>
-              Creative Direction, User Experience, Visual Design, SEO, Online Marketing
-            </p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            date="2008 - 2010"
-            iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-          >
-            <h3 className="vertical-timeline-element-title">Web Designer</h3>
-            <h4 className="vertical-timeline-element-subtitle">Los Angeles, CA</h4>
-            <p>
-              User Experience, Visual Design
-            </p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            date="2006 - 2008"
-            iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-          >
-            <h3 className="vertical-timeline-element-title">Web Designer</h3>
-            <h4 className="vertical-timeline-element-subtitle">San Francisco, CA</h4>
-            <p>
-              User Experience, Visual Design
-            </p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--education"
-            date="April 2013"
-            iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
-          >
-            <h3 className="vertical-timeline-element-title">Content Marketing for Web, Mobile and Social Media</h3>
-            <h4 className="vertical-timeline-element-subtitle">Online Course</h4>
-            <p>
-              Strategy, Social Media
-            </p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--education"
-            date="November 2012"
-            iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
-          >
-            <h3 className="vertical-timeline-element-title">Agile Development Scrum Master</h3>
-            <h4 className="vertical-timeline-element-subtitle">Certification</h4>
-            <p>
-              Creative Direction, User Experience, Visual Design
-            </p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--education"
-            date="2002 - 2006"
-            iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
-            icon={PointerImg}
-          >
-            <h3 className="vertical-timeline-element-title">Bachelor of Science in Interactive Digital Media Visual Imaging</h3>
-            <h4 className="vertical-timeline-element-subtitle">Bachelor Degree</h4>
-            <p>
-              Creative Direction, Visual Design
-            </p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            iconStyle={{ background: 'rgb(16, 204, 82)', color: '#fff' }}
-          />
+        <VerticalTimeline className="mt-16 flex" lineColor={'black'} layout="1-column-left" >
+          {
+            [1,2,3,4].map((item) => {
+                return (
+                  <VerticalTimelineElement
+                  className="vertical-timeline-element--work"
+                  contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff', textAlign: 'left', padding: '10px', width: '200px', height: '100px' }}
+                  contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
+                  date="ime ETA"
+                  iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                  icon={
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width:'100%', height:'100%' }}>
+                      <img src={MarkerIcon} alt=""width='30px' height='30px' />
+                    </div>
+                  }
+                >
+                  <h3 className="vertical-timeline-element-title">Creative Director</h3>
+                  <h4 className="vertical-timeline-element-subtitle">Miami, FL</h4>
+                 
+                </VerticalTimelineElement>
+                )
+            }
+          )}
         </VerticalTimeline>
       </div>
-      <div className="flex flex-col justify-start items-center ">
 
-        <div style={{ marginTop: "5px" }}>
+      <div className="flex flex-col justify-center items-center absolute right-0 ">
+
+        <div>
           <label
             htmlFor="city-select"
             style={{
@@ -225,6 +166,9 @@ function App() {
             height: "80vh",
             borderRadius: "15px",
             marginTop: "20px",
+            display:'flex',
+            justifyContent:'center',
+            alignItems:'center'
           }}
           mapStyle="mapbox://styles/mapbox/streets-v9"
         >
