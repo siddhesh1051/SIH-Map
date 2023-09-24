@@ -22,6 +22,25 @@ function App() {
   const [cityBuses, setCityBuses] = useState([]);
   const [city, setCity] = useState('Nagpur');
   const [selectedBus, setSelectedBus] = useState(null); // State to track the selected bus
+
+  const [stops, setStops] = useState([
+    {
+        "name": "City Center",
+        "arrivalTime": "2:00 PM"
+    },
+    {
+        "name": "City Center West",
+        "arrivalTime": "2:15 PM"
+    },
+    {
+        "name": "Suburb Market",
+        "arrivalTime": "2:30 PM"
+    },
+    {
+        "name": "Suburb",
+        "arrivalTime": "4:00 PM"
+    }
+]); // State to track the stops of the selected bus
   const mapRef = useRef(null);
 
   useEffect(() => {
@@ -29,7 +48,7 @@ function App() {
     const getBuses = async () => {
       try {
         const { data } = await axios.get(`http://localhost:5000/get-buses?city=${city}`);
-        console.log(data);
+        // console.log(data);
         setCityBuses(data);
 
         // Set the map viewport to focus on the selected city and zoom in
@@ -79,7 +98,13 @@ function App() {
       center: [bus.lng, bus.lat],
       zoom: 16
     });
+    // console.log(bus.stops);
+    setStops((prev)=>{
+      return [...bus.stops]
+    }); // Set the stops of the selected bus
+    // console.log(stops);
   }
+
 
   return (
 
@@ -96,13 +121,14 @@ function App() {
 
         <VerticalTimeline className="mt-16 flex" lineColor={'black'} layout="1-column-left" >
           {
-            [1,2,3,4].map((item) => {
+            stops.map((item) => {
+              // console.log(item);
                 return (
                   <VerticalTimelineElement
                   className="vertical-timeline-element--work"
                   contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff', textAlign: 'left', padding: '10px', width: '200px', height: '100px' }}
                   contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-                  date="ime ETA"
+                  date={item.arrivalTime}
                   iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
                   icon={
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width:'100%', height:'100%' }}>
@@ -110,8 +136,7 @@ function App() {
                     </div>
                   }
                 >
-                  <h3 className="vertical-timeline-element-title">Creative Director</h3>
-                  <h4 className="vertical-timeline-element-subtitle">Miami, FL</h4>
+                  <h3 className="vertical-timeline-element-title">{item.name}</h3>
                  
                 </VerticalTimelineElement>
                 )
@@ -120,7 +145,7 @@ function App() {
         </VerticalTimeline>
       </div>
 
-      <div className="flex flex-col justify-center items-center absolute right-0 ">
+      <div className="flex flex-col  absolute right-0 ">
 
         <div>
           <label
